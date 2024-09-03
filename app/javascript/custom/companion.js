@@ -1,12 +1,16 @@
-if (navigator.serviceWorker) {
-  navigator.serviceWorker.register("/service-worker.js")
-    .then(() => navigator.serviceWorker.ready)
-    .then((registration) => {
-      if ("SyncManager" in window) {
-        registration.sync.register("sync-forms");
-      } else {
-        window.alert("This browser does not support background sync.")
-      }
-    }).then(() => console.log("[Companion]", "Service worker registered!"));
-}
 
+document.addEventListener('DOMContentLoaded', () => {
+  if ('serviceWorker' in navigator && 'PushManager' in window) {
+    navigator.serviceWorker.register('/service-worker.js').then(registration => {
+      console.log('Service Worker registered with scope:', registration.scope);
+
+      document.getElementById('subscribe-button').addEventListener('click', () => {
+        subscribeUser(registration);
+      });
+    }).catch(error => {
+      console.error('Service Worker registration failed:', error);
+    });
+  } else {
+    console.warn('Push messaging is not supported');
+  }
+});

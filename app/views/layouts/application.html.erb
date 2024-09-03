@@ -10,6 +10,7 @@
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
 
+    <!-- Add the manifest file -->
     <link rel="manifest" href="/manifest.json" crossorigin="use-credentials">
   </head>
 
@@ -17,5 +18,6 @@
     <main class="container mx-auto mt-28 px-5 flex">
       <%= yield %>
     </main>
+
   </body>
 </html>
